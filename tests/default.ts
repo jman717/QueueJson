@@ -32,7 +32,7 @@ const sample_data = [
     `{props: {id: 2, name: 'another'}}`
 ]
 
-let qJson = new queue().init({ appender: 'default', 
-                                input_data: sample_data, 
-                                class: new class_test({}), 
-                                debug: true }) 
+let qJson = new queue({class: class_test, 
+                        appender: 'default', 
+                        debug: true}).
+                init({ input_data: sample_data }) 

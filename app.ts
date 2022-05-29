@@ -8,7 +8,7 @@
 const cc = require("node-console-colors")
 var _default = require('./lib/appenders/default')
 
-class QueueJson {
+exports = module.exports = class QueueJson {
 
     private appenders: Array<any> = [
         { name: 'default', obj: null }
@@ -19,41 +19,44 @@ class QueueJson {
     private appender_selected = 0;
     private blue: any;
 
-    constructor() {
+    constructor(props: any) {
         let t = this
         try {
+            t.props = props
+            t.props.parent = t
             t.log(`QueueJson constructor`, `debug`)
 
+            if (typeof t.props != 'undefined' && typeof t.props.debug != 'undefined') {
+                t.debug = t.props.debug
+            } else {
+                throw new Error(`props is not defined`)
+            }
+
             t.log = t.log.bind(t)
+            t.init = t.init.bind(t)
             return t
         } catch (e) {
             // e.message = "queueJson app.js init error: " + e.message
-            t.log(e)
+            t.log(`app constructor: ${e}`, "error")
         }
     }
 
     init = (props: any) => {
         let t = this
         try {
-            t.props = props
-            if (typeof t.props != 'undefined' && typeof t.props.debug != 'undefined') {
-                t.debug = t.props.debug
-            }
             t.log("QueueJson init", "debug");
-            t.props.parent = t
             t.appenders.map((aPen, i) => {
                 if (aPen.name == t.props.appender && 
                     t.props.appender == 'default' &&
                     typeof t.props.class != 'undefined') {
+                    t.props.appender = props.appender
                     aPen.obj = new _default(this.props)
                     // t.log(`jrm debug 5/26 (${this.props.class_data[0]})`, "debug");
                     try {
-                        t.log(`jrm debug 5/26 class(${typeof t.props.class})`, "debug");
+                        t.log(`jrm debug 5/26 class(${typeof new t.props.class({})})`, "debug");
                     } catch (e) {
                         t.log(`jrm debug 5/26 class error (${e})`, "debug");
                     }
-
-
                     // Object.assign(this, this.props.class_data[0]);
 
                     // // https://stackoverflow.com/questions/52315147/json-to-javascript-class
@@ -73,7 +76,7 @@ class QueueJson {
                 }
             })
         } catch (e) {
-            t.log(e, "error")
+            t.log(`app init: ${e}`, "error")
         }
     }
 
@@ -98,8 +101,4 @@ class QueueJson {
             console.log(e)
         }
     }
-}
-
-exports = module.exports = function () {
-    return new QueueJson()
 }
