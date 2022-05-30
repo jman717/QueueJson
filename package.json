@@ -1,7 +1,7 @@
 {
   "name": "queuejson",
   "version": "1.0.0",
-  "description": "Import and Export Json Data In Conjunction With QueueObj.",
+  "description": "Import and Export Json Data.",
   "main": "app.ts",
   "dependencies": {
     "chai": "^4.3.3",
@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "npx ts-node app.ts",
-    "test_default": "npx ts-node ./tests/default.ts",
+    "test_all": "npx ts-node ./tests/all.ts",
     "test": "mocha"
   },
   "repository": {
