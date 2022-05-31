@@ -28,21 +28,21 @@ class class_test {
 }
 
 const sample_data = [
-    `{props: {id: 1, name: 'test'}}`,
-    `{props: {id: 2, name: 'another'}}`,
-    `{props: {id: 3, name: 'another'}}`,
-    `{props: {id: 4, name: 'another'}}`
+    {props: {id: 1, name: 'test'}},
+    {props: {id: 2, name: 'another'}},
+    {props: {id: 3, name: 'another'}},
+    {props: {id: 4, name: 'another'}}
 ]
 
 try {
     let qJson = new queue({
-        class: class_test,
+        class_obj: class_test,
         appender: 'all',
         stats: true,
         debug: true
     }).init({ input_data: sample_data })
 
-    qJson.process({ start: 0, stop: 3 }).then((success: any) => {
+    qJson.process({ }).then((success: any) => {
         qJson.log(`all success: (${JSON.stringify(success)})`, 'success')
     }, (error: any) => {
         qJson.log(`all errors: (${JSON.stringify(error)})`, 'error')

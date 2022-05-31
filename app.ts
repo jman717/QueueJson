@@ -19,6 +19,7 @@ exports = module.exports = class QueueJson {
     private debug: boolean = false;
     private appender_selected = 0;
     private blue: any;
+    private class_obj_array: any = [];
 
     constructor(props: any) {
         let t = this, fname = `app constructor`
@@ -26,7 +27,6 @@ exports = module.exports = class QueueJson {
             t.props = props
             t.props.getParent = t.getParent
             t.props.log = t.log
-            t.log(fname, "debug");
 
             if (typeof t.props != 'undefined' && typeof t.props.debug != 'undefined') {
                 t.debug = t.props.debug
@@ -38,6 +38,8 @@ exports = module.exports = class QueueJson {
             t.init = t.init.bind(t)
             t.process = t.process.bind(t)
             t.getParent = t.getParent.bind(t)
+
+            t.log(fname, "debug");
             return t
         } catch (e) {
             t.log(`${fname}: ${e}`, "error")
@@ -52,35 +54,34 @@ exports = module.exports = class QueueJson {
         let t = this, fname = `app init`
         try {
             t.log(fname, "debug");
-            t.appenders.map((aPen, i) => {
-                if (aPen.name == t.props.appender &&
-                    t.props.appender == 'all' &&
-                    typeof t.props.class != 'undefined') {
-                    // t.props.appender = props.appender
-                    t.all = new all(this.props)
-                    // t.log(`jrm debug 5/26 (${this.props.class_data[0]})`, "debug");
-                    try {
-                        t.log(`jrm debug 5/26 class(${typeof new t.props.class({})})`, "debug");
-                    } catch (e) {
-                        t.log(`jrm debug 5/26 class error (${e})`, "debug");
-                    }
-                    // Object.assign(this, this.props.class_data[0]);
-
-                    // // https://stackoverflow.com/questions/52315147/json-to-javascript-class
-                    // // https://prasanthmj.github.io/typescript/serialize-javascript-objects/
-                    // t.log(`jrm debug 5/26 (${this.testJrm})`, "debug");
-
-                    // var p = eval("new " + this.props.class_data[0] + "()");
-
-                    // var nameOfThang = 'Person';
-                    // var nameOfThingzName = 'The Dude';
-
-                    // var thangs = { Person: { name: 'Legowski' }, Cars: {} };
-                    // var person = new (eval(thangs[nameOfThang].constructor))();
-                    // // person.name = new (eval(thangs.Person.name.constructor))(nameOfThingzName).toString();
-
-                    // console.log('@thang, #Person', person);
+            t.log(`jrm debug pro(${JSON.stringify(t.props)})(${JSON.stringify(props)})`, "debug");
+            try {
+                try {
+                    if (typeof props.input_data != 'undefined') {
+                        props.input_data.map((dat: any, i: number) => {
+                            t.class_obj_array.push(new t.props.class_obj(dat.props))
+                        })
+                    } else
+                        throw new Error('no input data array defined.')
+                } catch (e) {
+                    throw e
                 }
+
+            } catch (e) {
+                throw `new class_obj: ${e}`
+            }
+            t.appenders.map((aPen, i) => {
+
+                switch (t.props.appender) {
+                    case 'all':
+                        t.all = new all(t.props)
+                        break
+                    default:
+                        throw new Error(`appender(${t.props.appender}) is not defined`)
+                }
+
+                t.log(`jrm debug work here`, `purple`)
+
             })
             return t
         } catch (e) {

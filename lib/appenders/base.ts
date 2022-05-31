@@ -25,11 +25,6 @@ exports = module.exports = class base {
             t.qObj = new qObj()
             t.qObj.load({ appender: props.appender, stats: props.stats})
 
-            throw new Error(`jrm debug work here`)
-            
-            t.log(`jrm debug work here`, `purple`)
-            // , props = { appender: 'all', stats: true}  jrm debug 5/29 work here
-
             t.process = t.process.bind(t)
             t.process_all = t.process_all.bind(t)
             return t
@@ -59,7 +54,7 @@ exports = module.exports = class base {
         let t = this, fname = `base process`
         try {
             t.log(fname, "debug");
-            t.resolve_array[0]({'success ids': [1, 2, 3]})
+            // t.resolve_array[0]({'success ids': [1, 2, 3]})
             // t.reject_array[0]({'error ids': [1, 2, 3]})
         } catch (e) {
             t.log(`${fname}: ${e}`, "error")
