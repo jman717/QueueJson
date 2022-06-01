@@ -11,7 +11,7 @@ var queue = require("../app.ts");
 
 // https://prasanthmj.github.io/typescript/serialize-javascript-objects/
 
-class class_test_top_one {
+class class_test_bottom_one {
     private id: number = 0
     private name: string = ''
     private log: any
@@ -34,7 +34,7 @@ class class_test_top_one {
 
 }
 
-const sample_data_top_one = [
+const sample_data_bottom_one = [
     { props: { id: 100, name: 'test' } },
     { props: { id: 200, name: 'another' } },
     { props: { id: 300, name: 'some name' } },
@@ -43,11 +43,11 @@ const sample_data_top_one = [
 
 try {
     let qJson = new queue({
-        class_obj: class_test_top_one,
-        appender: 'top_one',
+        class_obj: class_test_bottom_one,
+        appender: 'bottom_one',
         stats: true,
         debug: true
-    }).init({ input_data: sample_data_top_one })
+    }).init({ input_data: sample_data_bottom_one })
 
     qJson.process({}).then((success: any) => {
         qJson.log(`all success: (${JSON.stringify(success)})`, 'success')

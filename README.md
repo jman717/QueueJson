@@ -6,6 +6,7 @@ Included tag appenders:
 
 * all - asynchronous - process class object per json input array.
 * top_one - asynchronous - process class object per the first entry in a json input array.
+* bottom_one - asynchronous - process class object per the last entry in a json input array.
 
 Installation
 ---------
@@ -24,6 +25,7 @@ General Setup Test
 ```
 npm run test_all
 npm run test_top_one
+npm run test_bottom_one
 
 ```
 

@@ -6,8 +6,9 @@
 */
 
 const cc = require("node-console-colors")
-var all = require('./lib/appenders/all')
-var top_one = require('./lib/appenders/top_one')
+var all = require('./lib/appenders/all'),
+    top_one = require('./lib/appenders/top_one'),
+    bottom_one = require('./lib/appenders/bottom_one')
 
 exports = module.exports = class QueueJson {
 
@@ -17,6 +18,7 @@ exports = module.exports = class QueueJson {
     private props: any;
     private all: any;
     private top_one: any;
+    private bottom_one: any;
     private appenders_dir = './lib/appenders/'
     private debug: boolean = false;
     private appender_selected = 0;
@@ -70,9 +72,13 @@ exports = module.exports = class QueueJson {
                                     if (i == 0)
                                         add = true
                                     break
+                                case 'bottom_one':
+                                    if (i == (props.input_data.length - 1))
+                                        add = true
+                                    break
                                 default:
                                     add = true
-                                }
+                            }
                             if (add)
                                 t.class_obj_array.push(new t.props.class_obj(dat.props))
                         })
@@ -93,6 +99,9 @@ exports = module.exports = class QueueJson {
                         break
                     case 'top_one':
                         t.top_one = new top_one(t.props)
+                        break
+                    case 'bottom_one':
+                        t.bottom_one = new bottom_one(t.props)
                         break
                     default:
                         throw new Error(`appender(${t.props.appender}) is not defined`)
@@ -147,6 +156,9 @@ exports = module.exports = class QueueJson {
                 case 'top_one':
                     pro.dat_array.push('top_one')
                     return t.top_one.process()
+                case 'bottom_one':
+                    pro.dat_array.push('bottom_one')
+                    return t.bottom_one.process()
                 default:
                     throw new Error(`nothing to process`)
             }
