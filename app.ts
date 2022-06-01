@@ -39,7 +39,7 @@ exports = module.exports = class QueueJson {
             t.process = t.process.bind(t)
             t.getParent = t.getParent.bind(t)
 
-            t.log(fname, "debug");
+            // t.log(fname, "debug");
             return t
         } catch (e) {
             t.log(`${fname}: ${e}`, "error")
@@ -50,11 +50,14 @@ exports = module.exports = class QueueJson {
         return this
     }
 
+    get_class_obj_array = () => {
+        return this.class_obj_array
+    }
+
     init = (props: any) => {
         let t = this, fname = `app init`
         try {
-            t.log(fname, "debug");
-            t.log(`jrm debug pro(${JSON.stringify(t.props)})(${JSON.stringify(props)})`, "debug");
+            // t.log(fname, "debug");
             try {
                 try {
                     if (typeof props.input_data != 'undefined') {
@@ -79,9 +82,6 @@ exports = module.exports = class QueueJson {
                     default:
                         throw new Error(`appender(${t.props.appender}) is not defined`)
                 }
-
-                t.log(`jrm debug work here`, `purple`)
-
             })
             return t
         } catch (e) {
@@ -107,6 +107,9 @@ exports = module.exports = class QueueJson {
                 case 'success':
                     tp = "fg_green"
                     break
+                case 'white':
+                    tp = "bg_white"
+                    break
                 default:
                     tp = 'bg_dark_gray'
             }
@@ -120,9 +123,8 @@ exports = module.exports = class QueueJson {
     process = (props: any) => {
         let t = this, fname = `app process`
         let pro = { 'dat_array': [''] }
-        // let pro.dat_array : Element[] = [];
         try {
-            t.log(`${fname} appender(${JSON.stringify(t.props)})`, "debug");
+            // t.log(`${fname} appender(${JSON.stringify(t.props)})`, "debug");
             switch (t.props.appender) {
                 case 'all':
                     pro.dat_array.push('all')

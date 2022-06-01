@@ -29,14 +29,6 @@ General Setup Test
 ```
 npm run test_all
 
-
-<!-- node test_top_one
-node test_bottom_one
-node test_func_all
-node test_sync_all
-node test_status
-node test_version -->
-
 ```
 
 Usage

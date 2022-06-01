@@ -14,9 +14,11 @@ var queue = require("../app.ts");
 class class_test {
     private id: number = 0
     private name: string = ''
+    private log: any
     constructor(props: any) {
         let t = this
         t.id = props.id
+        t.log = props.log
         t.name = props.name
 
         t.process = t.process.bind(t)
@@ -24,14 +26,19 @@ class class_test {
 
     process(callback: any) {
         let t = this
+        if (t.id == 3) {
+            callback({ error: { msg: `this id(${t.id}) has some problem` } })
+        } else
+            callback({ success: { id: t.id } })
     }
+
 }
 
 const sample_data = [
-    {props: {id: 1, name: 'test'}},
-    {props: {id: 2, name: 'another'}},
-    {props: {id: 3, name: 'another'}},
-    {props: {id: 4, name: 'another'}}
+    { props: { id: 1, name: 'test' } },
+    { props: { id: 2, name: 'another' } },
+    { props: { id: 3, name: 'another' } },
+    { props: { id: 4, name: 'another' } }
 ]
 
 try {
@@ -42,7 +49,7 @@ try {
         debug: true
     }).init({ input_data: sample_data })
 
-    qJson.process({ }).then((success: any) => {
+    qJson.process({}).then((success: any) => {
         qJson.log(`all success: (${JSON.stringify(success)})`, 'success')
     }, (error: any) => {
         qJson.log(`all errors: (${JSON.stringify(error)})`, 'error')

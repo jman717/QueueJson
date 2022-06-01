@@ -12,7 +12,7 @@ exports = module.exports = class all extends base {
 		var t = this
 		try {
 			t.aname = 'all'
-			t.log(`all constructor`, `debug`)
+			// t.log(`all constructor`, `debug`)
 			return t
 		} catch (e) {
 			t.log(e, "error")
