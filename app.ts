@@ -7,6 +7,7 @@
 
 const cc = require("node-console-colors")
 var all = require('./lib/appenders/all')
+var top_one = require('./lib/appenders/top_one')
 
 exports = module.exports = class QueueJson {
 
@@ -15,6 +16,7 @@ exports = module.exports = class QueueJson {
     ]
     private props: any;
     private all: any;
+    private top_one: any;
     private appenders_dir = './lib/appenders/'
     private debug: boolean = false;
     private appender_selected = 0;
@@ -55,14 +57,24 @@ exports = module.exports = class QueueJson {
     }
 
     init = (props: any) => {
-        let t = this, fname = `app init`
+        let t = this, fname = `app init`, add = false
         try {
             // t.log(fname, "debug");
             try {
                 try {
                     if (typeof props.input_data != 'undefined') {
                         props.input_data.map((dat: any, i: number) => {
-                            t.class_obj_array.push(new t.props.class_obj(dat.props))
+                            add = false
+                            switch (t.props.appender) {
+                                case 'top_one':
+                                    if (i == 0)
+                                        add = true
+                                    break
+                                default:
+                                    add = true
+                                }
+                            if (add)
+                                t.class_obj_array.push(new t.props.class_obj(dat.props))
                         })
                     } else
                         throw new Error('no input data array defined.')
@@ -78,6 +90,9 @@ exports = module.exports = class QueueJson {
                 switch (t.props.appender) {
                     case 'all':
                         t.all = new all(t.props)
+                        break
+                    case 'top_one':
+                        t.top_one = new top_one(t.props)
                         break
                     default:
                         throw new Error(`appender(${t.props.appender}) is not defined`)
@@ -129,6 +144,9 @@ exports = module.exports = class QueueJson {
                 case 'all':
                     pro.dat_array.push('all')
                     return t.all.process()
+                case 'top_one':
+                    pro.dat_array.push('top_one')
+                    return t.top_one.process()
                 default:
                     throw new Error(`nothing to process`)
             }

@@ -1,40 +1,17 @@
-# QueueJson
 
-Process class objects according to json array input data.
+/*
+* @author Jim Manton: jrman@risebroadband.net
+* @since 2022-05-24
+* top_one.ts
+*/
 
-Included tag appenders:
+var queue = require("../app.ts");
 
-* all - asynchronous - process class object per json input array.
-* top_one - asynchronous - process class object per the first entry in a json input array.
+//This json data can persist in a database or in a flat file
 
-Installation
----------
-```
-npm install QueueJson 
-```
+// https://prasanthmj.github.io/typescript/serialize-javascript-objects/
 
-Mocha Test
----------
-```
-npm test
-```
-
-General Setup Test
----------
-```
-npm run test_all
-npm run test_top_one
-
-```
-
-Usage
----------
-```js
-
-
-var queue = require("queuejson");
-
-class class_test {
+class class_test_top_one {
     private id: number = 0
     private name: string = ''
     private log: any
@@ -57,20 +34,20 @@ class class_test {
 
 }
 
-const sample_data = [
-    { props: { id: 1, name: 'test' } },
-    { props: { id: 2, name: 'another' } },
-    { props: { id: 3, name: 'another' } },
-    { props: { id: 4, name: 'another' } }
+const sample_data_top_one = [
+    { props: { id: 100, name: 'test' } },
+    { props: { id: 200, name: 'another' } },
+    { props: { id: 300, name: 'some name' } },
+    { props: { id: 400, name: 'last' } }
 ]
 
 try {
     let qJson = new queue({
-        class_obj: class_test,
-        appender: 'all',
+        class_obj: class_test_top_one,
+        appender: 'top_one',
         stats: true,
         debug: true
-    }).init({ input_data: sample_data })
+    }).init({ input_data: sample_data_top_one })
 
     qJson.process({}).then((success: any) => {
         qJson.log(`all success: (${JSON.stringify(success)})`, 'success')
@@ -81,6 +58,3 @@ try {
     console.log(`error running all.ts test`)
 }
 
-
-
-```
