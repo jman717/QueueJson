@@ -12,6 +12,8 @@ exports = module.exports = class base {
     private resolve_array: any;
     private reject_array: any;
     private qObj: any;
+    private aname: string = '';
+    private function_name: string = '';
     private stats: boolean = false;
     private parent: any;
 
@@ -53,7 +55,7 @@ exports = module.exports = class base {
     }
 
     process_all = () => {
-        let t = this, fname = `base process_all`, coa
+        let t = this, fname = `base process_all`, coa, funcN, objF
         try {
             // t.log(fname, "debug");
 
@@ -64,8 +66,19 @@ exports = module.exports = class base {
 
             coa.map((dat: any, i: number) => {
                 dat.log = t.log
-
-                t.qObj.add(dat)
+                switch (t.aname) {
+                    case 'func_all':
+                        funcN = t.parent.getFunctionName();
+                        if (typeof funcN != 'string')
+                            throw new Error(`function name (${funcN}) does not exist`)
+                        objF = eval(`dat.${funcN}`)
+                        if (typeof objF != 'function')
+                            throw new Error(`function(${funcN}) does not exist`)
+                        t.qObj.add(objF)
+                        break
+                    default:
+                        t.qObj.add(dat)
+                }
             })
 
             t.qObj.process({}).then((res: any) => {

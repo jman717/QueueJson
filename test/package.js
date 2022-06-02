@@ -4,12 +4,11 @@ const assert = require('assert'),
 
 const packageMock = {
   "name": "queuejson",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Process class objects according to json array input data.",
   "main": "app.ts",
   "dependencies": {
     "chai": "^4.3.3",
-    "colors": "^1.4.0",
     "compare-json-difference": "^0.1.3",
     "mocha": "^9.1.3",
     "node-console-colors": "^1.1.4",
@@ -21,6 +20,7 @@ const packageMock = {
     "test_all": "npx ts-node ./tests/all.ts",
     "test_top_one": "npx ts-node ./tests/top_one.ts",
     "test_bottom_one": "npx ts-node ./tests/bottom_one.ts",
+    "test_func_all": "npx ts-node ./tests/func_all.ts",
     "test": "mocha"
   },
   "repository": {

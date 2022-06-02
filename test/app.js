@@ -3,11 +3,24 @@ var assert = require('assert');
 describe('app', function () {
 
     describe('require', function () {
-        it('colors', function () {
+        it('queueobj', function () {
             try {
-                colors = require('colors')
-                if (typeof colors == 'undefined') {
-                    throw new Error('no colors')
+                queueobj = require('queueobj')
+                if (typeof queueobj == 'undefined') {
+                    throw new Error('no queueobj')
+                }
+            } catch (e) {
+                assert(false)
+            }
+        })
+    })
+    
+    describe('node-console-colors', function () {
+        it('node-console-colors', function () {
+            try {
+                ncc = require('node-console-colors')
+                if (typeof ncc == 'undefined') {
+                    throw new Error('no node-console-colors')
                 }
             } catch (e) {
                 assert(false)

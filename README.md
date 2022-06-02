@@ -7,6 +7,7 @@ Included tag appenders:
 * all - asynchronous - process class object per json input array.
 * top_one - asynchronous - process class object per the first entry in a json input array.
 * bottom_one - asynchronous - process class object per the last entry in a json input array.
+* func_all - asynchronous - process custom functions to custom class objects per json input array.
 
 Installation
 ---------
@@ -26,6 +27,7 @@ General Setup Test
 npm run test_all
 npm run test_top_one
 npm run test_bottom_one
+npm run test_func_all
 
 ```
 
@@ -62,8 +64,8 @@ class class_test {
 const sample_data = [
     { props: { id: 1, name: 'test' } },
     { props: { id: 2, name: 'another' } },
-    { props: { id: 3, name: 'another' } },
-    { props: { id: 4, name: 'another' } }
+    { props: { id: 3, name: 'some name' } },
+    { props: { id: 4, name: 'name x' } }
 ]
 
 try {

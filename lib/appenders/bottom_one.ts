@@ -1,7 +1,7 @@
 /*
 * @author Jim Manton: jrman@risebroadband.net
 * @since 2022-05-24
-* all.ts
+* bottom_one.ts
 */
 
 var base = require('./base.ts')
@@ -17,6 +17,5 @@ exports = module.exports = class bottom_one extends base {
 		} catch (e) {
 			t.log(e, "error")
 		}
-
 	}
 }
