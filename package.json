@@ -1,6 +1,6 @@
 {
   "name": "queuejson",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Process class objects according to json array input data.",
   "main": "app.ts",
   "dependencies": {

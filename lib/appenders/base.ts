@@ -66,18 +66,12 @@ exports = module.exports = class base {
 
             coa.map((dat: any, i: number) => {
                 dat.log = t.log
-                switch (t.aname) {
-                    case 'func_all':
-                        funcN = t.parent.getFunctionName();
-                        if (typeof funcN != 'string')
-                            throw new Error(`function name (${funcN}) does not exist`)
-                        objF = eval(`dat.${funcN}`)
-                        if (typeof objF != 'function')
-                            throw new Error(`function(${funcN}) does not exist`)
-                        t.qObj.add(objF)
-                        break
-                    default:
-                        t.qObj.add(dat)
+                if (typeof t.qObj == 'undefined')
+                    throw new Error(`qObj does not exist`)
+                if (typeof dat._getFuncName == 'function') {
+                    t.qObj.add(eval(`dat.${dat._getFuncName()}`))
+                } else {
+                    t.qObj.add(dat)
                 }
             })
 

@@ -7,7 +7,8 @@ Included tag appenders:
 * all - asynchronous - process class object per json input array.
 * top_one - asynchronous - process class object per the first entry in a json input array.
 * bottom_one - asynchronous - process class object per the last entry in a json input array.
-* func_all - asynchronous - process custom functions to custom class objects per json input array.
+* func_all - asynchronous - process custom functions of custom class objects per json input array.
+* sync_all - synchronous - queue and process all objects by items as well as custom functions.
 
 Installation
 ---------

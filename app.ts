@@ -55,17 +55,13 @@ var all = require('./lib/appenders/all'),
         getParent = () => {
             return this
         }
-        
-        getFunctionName = () => {
-            return this.props.function_name
-        }
 
         get_class_obj_array = () => {
             return this.class_obj_array
         }
 
         init = (props: any) => {
-            let t = this, fname = `app init`, add = false
+            let t = this, fname = `app init`, add = false, co
             try {
                 // t.log(fname, "debug");
                 try {
@@ -85,8 +81,15 @@ var all = require('./lib/appenders/all'),
                                     default:
                                         add = true
                                 }
-                                if (add)
-                                    t.class_obj_array.push(new t.props.class_obj(dat.props))
+                                if (add) {
+                                    co = new t.props.class_obj(dat.props)
+                                    if (typeof dat.props.function_name == 'string') {
+                                        co._getFuncName = () => {
+                                            return dat.props.function_name
+                                        }
+                                    }
+                                    t.class_obj_array.push(co)
+                                }
                             })
                         } else
                             throw new Error('no input data array defined.')

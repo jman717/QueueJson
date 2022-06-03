@@ -22,31 +22,35 @@ class class_test_func_all {
         t.name = props.name
 
         t.some_function = t.some_function.bind(t)
+        t.another_function = t.another_function.bind(t)
     }
 
     some_function(callback: any) {
         let t = this
-        if (t.id == 44) {
-            callback({ error: { msg: `this id(${t.id}) in the custom function 'some_function' has thrown an error` } })
-        } else
+        // if (t.id == 44) {
+        //     callback({ error: { msg: `this id(${t.id}) in the custom function 'some_function' has thrown an error` } })
+        // } else
             callback({ success: { id: t.id, function_name: 'some_function' } })
     }
 
+    another_function(callback: any) {
+        let t = this
+        callback({ success: { id: t.id } })
+    }
 }
 
 const sample_data_func_all = [
-    { props: { id: 22, name: 'test' } },
-    { props: { id: 33, name: 'another' } },
-    { props: { id: 44, name: 'some name' } },
-    { props: { id: 45, name: 'last' } }
+    { props: { id: 22, name: 'test', function_name: 'some_function' } },
+    { props: { id: 33, name: 'another', function_name: 'another_function' } },
+    { props: { id: 44, name: 'some name', function_name: 'some_function' } },
+    { props: { id: 45, name: 'last', function_name: 'some_function' } }
 ]
 
 try {
     let qJson = new queue({
         class_obj: class_test_func_all,
-        function_name: 'some_function',
         appender: 'func_all',
-        stats: true,
+        stats: false,
         debug: true
     }).init({ input_data: sample_data_func_all })
 
