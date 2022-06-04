@@ -12,7 +12,7 @@ const packageMock = {
     "compare-json-difference": "^0.1.3",
     "mocha": "^9.1.3",
     "node-console-colors": "^1.1.4",
-    "queueobj": "^8.0.2",
+    "queueobj": "^9.0.0",
     "ts-node": "^10.8.0"
   },
   "scripts": {
@@ -21,6 +21,7 @@ const packageMock = {
     "test_top_one": "npx ts-node ./tests/top_one.ts",
     "test_bottom_one": "npx ts-node ./tests/bottom_one.ts",
     "test_func_all": "npx ts-node ./tests/func_all.ts",
+    "test_sync_all": "npx ts-node ./tests/sync_all.ts",
     "test": "mocha"
   },
   "repository": {

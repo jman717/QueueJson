@@ -8,7 +8,7 @@ Included tag appenders:
 * top_one - asynchronous - process class object per the first entry in a json input array.
 * bottom_one - asynchronous - process class object per the last entry in a json input array.
 * func_all - asynchronous - process custom functions of custom class objects per json input array.
-* sync_all - synchronous - queue and process all objects by items as well as custom functions.
+* sync_all - synchronous - process custom functions of custom class objects per json input array.
 
 Installation
 ---------
@@ -29,6 +29,7 @@ npm run test_all
 npm run test_top_one
 npm run test_bottom_one
 npm run test_func_all
+npm run test_sync_all
 
 ```
 

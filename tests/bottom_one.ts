@@ -29,7 +29,7 @@ class class_test_bottom_one {
         if (t.id == 3) {
             callback({ error: { msg: `this id(${t.id}) has some problem` } })
         } else
-            callback({ success: { id: t.id } })
+            callback({ success: { msg: `id = ${t.id}` } })
     }
 
 }
