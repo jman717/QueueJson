@@ -4,10 +4,10 @@ Process class objects according to json array input data.
 
 Included tag appenders:
 
-* all - asynchronous - process class object per json input array.
-* top_one - asynchronous - process class object per the first entry in a json input array.
-* bottom_one - asynchronous - process class object per the last entry in a json input array.
-* func_all - asynchronous - process custom functions of custom class objects per json input array.
+* all - synchronous - process class object per json input array.
+* top_one - synchronous - process class object per the first entry in a json input array.
+* bottom_one - synchronous - process class object per the last entry in a json input array.
+* func_all - synchronous - process custom functions of custom class objects per json input array.
 * sync_all - synchronous - process custom functions of custom class objects per json input array.
 
 Installation
