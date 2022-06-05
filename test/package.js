@@ -12,7 +12,7 @@ const packageMock = {
     "compare-json-difference": "^0.1.3",
     "mocha": "^9.1.3",
     "node-console-colors": "^1.1.4",
-    "queueobj": "^9.0.0",
+    "queueobj": "^9.0.1",
     "ts-node": "^10.8.0"
   },
   "scripts": {
