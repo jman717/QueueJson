@@ -38,7 +38,7 @@ exports = module.exports = class base {
         }
     }
 
-    process = () => {
+    process = (props: any) => {
         let t = this, fname = `base process`
         try {
             t.dt_start = new Date(); // start measuring time
@@ -68,6 +68,7 @@ exports = module.exports = class base {
                 dat.log = t.log
                 if (typeof t.qObj == 'undefined')
                     throw new Error(`qObj does not exist`)
+
                 if (typeof dat._getFuncName == 'function') {
                     t.qObj.add(eval(`dat.${dat._getFuncName()}`))
                 } else {
@@ -82,6 +83,8 @@ exports = module.exports = class base {
             })
         } catch (e) {
             t.log(`${fname}: ${e}`, "error")
+            throw e
+            // t.reject_array[0]({ e })
         }
     }
 }

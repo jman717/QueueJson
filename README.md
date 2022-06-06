@@ -1,14 +1,15 @@
 # QueueJson
 
-Process class objects according to json array input data.
+Process class objects by selected appender according to json array input data. All appenders are processed synchronously.
 
 Included tag appenders:
 
-* all - synchronous - process class object per json input array.
-* top_one - synchronous - process class object per the first entry in a json input array.
-* bottom_one - synchronous - process class object per the last entry in a json input array.
-* func_all - synchronous - process custom functions of custom class objects per json input array.
-* sync_all - synchronous - process custom functions of custom class objects per json input array.
+* all - process class object per json input array.
+* top_one - process class object per the first entry in a json input array.
+* bottom_one - process class object per the last entry in a json input array.
+* func_all - process custom functions of custom class objects per json input array.
+* sync_all - process custom functions of custom class objects per json input array.
+* status - process custom class objects by status (matching or non-matching items) per json input array.
 
 Installation
 ---------
@@ -30,6 +31,8 @@ npm run test_top_one
 npm run test_bottom_one
 npm run test_func_all
 npm run test_sync_all
+npm run test_by_status_matching
+npm run test_by_status_non_matching
 
 ```
 
