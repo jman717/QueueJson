@@ -49,6 +49,7 @@ try {
         appender: 'status',
         stats: true,
         debug: true
+        
     }).init({ input_data: sample_data_by_status, matching: ['new', 'print'] })
 
     qJson.process({}).then((success: any) => {

@@ -61,8 +61,10 @@ exports = module.exports = class base {
 
             coa = t.parent.get_class_obj_array()
 
-            if (coa.length == 0)
-                throw new Error('class object array has nothing to process')
+            if (coa.length == 0) {
+                t.reject_array[0]({ error: 'no matching data to process' })
+            }
+                // throw new Error('class object array has nothing to process')
 
             coa.map((dat: any, i: number) => {
                 dat.log = t.log
@@ -84,7 +86,6 @@ exports = module.exports = class base {
         } catch (e) {
             t.log(`${fname}: ${e}`, "error")
             throw e
-            // t.reject_array[0]({ e })
         }
     }
 }
