@@ -4,7 +4,7 @@ const assert = require('assert'),
 
 const packageMock = {
   "name": "queuejson",
-  "version": "6.0.1",
+  "version": "7.0.0",
   "description": "Process class objects according to json array input data.",
   "main": "app.ts",
   "dependencies": {
@@ -24,6 +24,8 @@ const packageMock = {
     "test_sync_all": "npx ts-node ./tests/sync_all.ts",
     "test_by_status_matching": "npx ts-node ./tests/by_status_matching.ts",
     "test_by_status_non_matching": "npx ts-node ./tests/by_status_non_matching.ts",
+    "test_by_version_matching": "npx ts-node ./tests/by_version_matching.ts",
+    "test_by_version_non_matching": "npx ts-node ./tests/by_version_non_matching.ts",
     "test": "mocha"
   },
   "repository": {

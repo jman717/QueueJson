@@ -10,6 +10,7 @@ Included tag appenders:
 * func_all - process custom functions of custom class objects per json input array.
 * sync_all - process custom functions of custom class objects per json input array.
 * status - process custom class objects by status (matching or non-matching items) per json input array.
+* version - process custom class objects by version (matching or non-matching items) per json input array.
 
 Installation
 ---------
@@ -33,6 +34,8 @@ npm run test_func_all
 npm run test_sync_all
 npm run test_by_status_matching
 npm run test_by_status_non_matching
+npm run test_by_version_matching
+npm run test_by_version_non_matching
 
 ```
 

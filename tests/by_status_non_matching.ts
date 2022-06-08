@@ -7,10 +7,6 @@
 
 var queue = require("../app.ts");
 
-//This json data can persist in a database or in a flat file
-
-// https://prasanthmj.github.io/typescript/serialize-javascript-objects/
-
 class class_test_by_non_matching_status {
     private id: number = 0
     private name: string = ''

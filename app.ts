@@ -11,7 +11,8 @@ var all = require('./lib/appenders/all'),
     bottom_one = require('./lib/appenders/bottom_one'),
     func_all = require('./lib/appenders/func_all'),
     sync_all = require('./lib/appenders/sync_all'),
-    by_status = require('./lib/appenders/by_status')
+    by_status = require('./lib/appenders/by_status'),
+    version = require('./lib/appenders/version')
 
 exports = module.exports = class QueueJson {
 
@@ -25,6 +26,7 @@ exports = module.exports = class QueueJson {
     private func_all: any;
     private sync_all: any;
     private by_status: any;
+    private version: any;
     private appenders_dir = './lib/appenders/'
     private debug: boolean = false;
     private appender_selected = 0;
@@ -93,6 +95,17 @@ exports = module.exports = class QueueJson {
                                             add = true
                                     } catch { }
                                     break
+                                case 'version':
+                                    try {
+                                        if (props.matching.indexOf(dat.props.version) > -1)
+                                            add = true
+                                    } catch { }
+                                    try {
+                                        if (props.non_matching.indexOf(dat.props.version) == -1)
+                                            add = true
+                                    } catch { }
+                                    break
+
                                 default:
                                     add = true
                             }
@@ -133,6 +146,9 @@ exports = module.exports = class QueueJson {
                     case 'status':
                     case 'by_status':
                         t.by_status = new by_status(t.props)
+                        break
+                    case 'version':
+                        t.version = new version(t.props)
                         break
                     case 'bottom_one':
                         t.bottom_one = new bottom_one(t.props)
@@ -200,6 +216,9 @@ exports = module.exports = class QueueJson {
                 case 'by_status':
                     pro.dat_array.push('by_status')
                     return t.by_status.process(props)
+                case 'version':
+                    pro.dat_array.push('version')
+                    return t.version.process(props)
                 case 'sync_all':
                     pro.dat_array.push('sync_all')
                     return t.sync_all.process()
