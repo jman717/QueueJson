@@ -51,7 +51,7 @@ exports = module.exports = class QueueJson {
             t.process = t.process.bind(t)
             t.getParent = t.getParent.bind(t)
 
-            // t.log(fname, "debug");
+            t.log(fname, "debug");
             return t
         } catch (e) {
             t.log(`${fname}: ${e}`, "error")
@@ -69,7 +69,7 @@ exports = module.exports = class QueueJson {
     init = (props: any) => {
         let t = this, fname = `app init`, add = false, co
         try {
-            // t.log(fname, "debug");
+            t.log(`${fname} appender(${t.props.appender})`, "debug");
             try {
                 try {
                     if (typeof props.input_data != 'undefined') {
@@ -170,7 +170,7 @@ exports = module.exports = class QueueJson {
                 case 'debug':
                     if (!t.debug)
                         return
-                    tp = "bg_dark_cyan"
+                    tp = "bg_dark_gray"
                     break
                 case 'error':
                     tp = "fg_red"

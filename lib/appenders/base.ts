@@ -55,7 +55,7 @@ exports = module.exports = class base {
     }
 
     process_all = () => {
-        let t = this, fname = `base process_all`, coa, funcN, objF
+        let t = this, fname = `base process_all`, coa
         try {
             // t.log(fname, "debug");
 
@@ -72,6 +72,7 @@ exports = module.exports = class base {
                     throw new Error(`qObj does not exist`)
 
                 if (typeof dat._getFuncName == 'function') {
+                    t.log(`${fname}: function name(${dat._getFuncName()})`, `debug`)
                     t.qObj.add(eval(`dat.${dat._getFuncName()}`))
                 } else {
                     t.qObj.add(dat)

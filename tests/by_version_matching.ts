@@ -44,7 +44,7 @@ try {
         class_obj: class_test_by_matching_version,
         appender: 'version',
         stats: true,
-        debug: true
+        debug: false
 
         
     }).init({ input_data: sample_data_version, matching: ['1.01', '4.00'] })
