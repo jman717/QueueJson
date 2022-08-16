@@ -1,15 +1,15 @@
 {
   "name": "queuejson",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "Process class objects according to json array input data.",
   "main": "app.ts",
   "dependencies": {
     "chai": "^4.3.3",
     "compare-json-difference": "^0.1.3",
-    "mocha": "^9.1.3",
+    "mocha": "^10.0",
     "node-console-colors": "^1.1.4",
-    "queueobj": "^9.0.1",
-    "ts-node": "^10.8.0"
+    "queueobj": "^9.0.2",
+    "ts-node": "^10.9.1"
   },
   "scripts": {
     "start": "npx ts-node app.ts",
