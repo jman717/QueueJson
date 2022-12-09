@@ -1,74 +1,19 @@
 const assert = require('assert'),
-    jsonHasDifferences = require('compare-json-difference'),
+    jsonHasDifferences = require('diffler'),
     packagejson = require('../package.json')
 
 const packageMock = {
   "name": "queuejson",
-  "version": "7.0.2",
-  "description": "Process class objects according to json array input data.",
-  "main": "app.ts",
-  "dependencies": {
-    "chai": "^4.3.3",
-    "compare-json-difference": "^0.1.3",
-    "mocha": "^10.0",
-    "node-console-colors": "^1.1.4",
-    "queueobj": "^9.0.2",
-    "ts-node": "^10.9.1"
-  },
-  "scripts": {
-    "start": "npx ts-node app.ts",
-    "test_all": "npx ts-node ./tests/all.ts",
-    "test_top_one": "npx ts-node ./tests/top_one.ts",
-    "test_bottom_one": "npx ts-node ./tests/bottom_one.ts",
-    "test_func_all": "npx ts-node ./tests/func_all.ts",
-    "test_sync_all": "npx ts-node ./tests/sync_all.ts",
-    "test_by_status_matching": "npx ts-node ./tests/by_status_matching.ts",
-    "test_by_status_non_matching": "npx ts-node ./tests/by_status_non_matching.ts",
-    "test_by_version_matching": "npx ts-node ./tests/by_version_matching.ts",
-    "test_by_version_non_matching": "npx ts-node ./tests/by_version_non_matching.ts",
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jman717/QueueJson.git"
-  },
-  "keywords": [
-    "queueobj",
-    "json",
-    "persist",
-    "queue",
-    "processing",
-    "appenders",
-    "javascript",
-    "synchronous",
-    "typescript",
-    "objects",
-    "promises",
-    "mocha"
-  ],
-  "author": "Jim Manton",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jman717/QueueJson/issues"
-  },
-  "homepage": "https://github.com/jman717/QueueJson#readme",
-  "devDependencies": {
-    "typescript": "^4.6.4"
-  }
-}
-
-describe('package.json', function () {
-  "name": "queuejson",
-  "version": "7.0.3",
+  "version": "7.0.4",
   "description": "Process class objects according to json array input data.",
   "main": "app.ts",
   "dependencies": {
     "chai": "^4.3.7",
-    "compare-json-difference": "^0.1.3",
     "mocha": "^10.1.0",
     "node-console-colors": "^1.1.4",
-    "queueobj": "^9.0.4",
-    "ts-node": "^10.9.1"
+    "queueobj": "^9.1.1",
+    "ts-node": "^10.9.1",
+    "diffler": "^2.0.4"
   },
   "scripts": {
     "start": "npx ts-node app.ts",
@@ -81,7 +26,8 @@ describe('package.json', function () {
     "test_by_status_non_matching": "npx ts-node ./tests/by_status_non_matching.ts",
     "test_by_version_matching": "npx ts-node ./tests/by_version_matching.ts",
     "test_by_version_non_matching": "npx ts-node ./tests/by_version_non_matching.ts",
-    "test": "mocha"
+    "test": "mocha",
+    "ditched": "ditched -a"
   },
   "repository": {
     "type": "git",
@@ -108,6 +54,18 @@ describe('package.json', function () {
   },
   "homepage": "https://github.com/jman717/QueueJson#readme",
   "devDependencies": {
-    "typescript": "^4.6.4"
+    "typescript": "^4.9.4"
   }
+}
+
+describe('package.json', function () {
+  it('should pass', function () {
+    const difference = jsonHasDifferences(packagejson, packageMock)
+    assert(JSON.stringify(difference) == "{}")
+  })
+
+  it('should fail', function () {
+      packageMock.version = '0'
+      assert(jsonHasDifferences(packagejson, packageMock))
+  })
 })
