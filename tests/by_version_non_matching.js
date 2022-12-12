@@ -1,18 +1,14 @@
 
 /*
 * @author Jim Manton: jrman@risebroadband.net
-* @since 2022-05-24
-* version.ts
+* @since 2022-12-11
+* version.js
 */
 
-var queue = require("../app.ts");
+var queue = require("../app.js");
 
-class class_test_by_matching_version {
-    private id: number = 0
-    private name: string = ''
-    private version: string = 'init'
-    private log: any
-    constructor(props: any) {
+class class_test_by_non_matching_version {
+    constructor(props) {
         let t = this
         t.id = props.id
         t.log = props.log
@@ -22,17 +18,16 @@ class class_test_by_matching_version {
         t.process = t.process.bind(t)
     }
 
-    process(callback: any) {
+    process(callback) {
         let t = this
         if (t.id == 300) {
             callback({ error: { msg: `this id(${t.id})} version(${t.version}) has some problem` } })
         } else
             callback({ success: { msg: `id = ${t.id} version(${t.version})` } })
     }
-
 }
 
-const sample_data_version = [
+const sample_data_by_version = [
     { props: { id: 100, version: '1.01', name: 'test' } },
     { props: { id: 200, version: '4.00', name: 'another' } },
     { props: { id: 300, version: '1.01', name: 'some name' } },
@@ -41,20 +36,18 @@ const sample_data_version = [
 
 try {
     let qJson = new queue({
-        class_obj: class_test_by_matching_version,
+        class_obj: class_test_by_non_matching_version,
         appender: 'version',
         stats: true,
-        debug: false
+        debug: true
+    }).init({ input_data: sample_data_by_version, non_matching: ['1.01'] })
 
-        
-    }).init({ input_data: sample_data_version, matching: ['1.01', '4.00'] })
-
-    qJson.process({}).then((success: any) => {
+    qJson.process({}).then((success) => {
         qJson.log(`version success: (${JSON.stringify(success)})`, 'success')
-    }, (error: any) => {
+    }, (error) => {
         qJson.log(`version errors: (${JSON.stringify(error)})`, 'error')
     })
 } catch (e) {
-    console.log(`error running all.ts test`)
+    console.log(`error running by_version_non_matching.js test`)
 }
 

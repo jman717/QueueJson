@@ -1,12 +1,12 @@
 
 /*
 * @author Jim Manton: jrman@risebroadband.net
-* @since 2022-05-24
-* apps.ts
+* @since 2022-12-11
+* apps.js
 */
 
-const cc = require("node-console-colors")
-var all = require('./lib/appenders/all'),
+const cc = require("node-console-colors"),
+    all = require('./lib/appenders/all.js'),
     top_one = require('./lib/appenders/top_one'),
     bottom_one = require('./lib/appenders/bottom_one'),
     func_all = require('./lib/appenders/func_all'),
@@ -15,27 +15,12 @@ var all = require('./lib/appenders/all'),
     version = require('./lib/appenders/version')
 
 exports = module.exports = class QueueJson {
-
-    private appenders: Array<any> = [
-        { name: 'all', obj: null }
-    ]
-    private props: any;
-    private all: any;
-    private top_one: any;
-    private bottom_one: any;
-    private func_all: any;
-    private sync_all: any;
-    private by_status: any;
-    private version: any;
-    private appenders_dir = './lib/appenders/'
-    private debug: boolean = false;
-    private appender_selected = 0;
-    private blue: any;
-    private class_obj_array: any = [];
-
-    constructor(props: any) {
+    constructor(props) {
         let t = this, fname = `app constructor`
         try {
+            t.class_obj_array = [];
+            t.appenders = [{ name: 'all', obj: null }]
+
             t.props = props
             t.props.getParent = t.getParent
             t.props.log = t.log
@@ -66,14 +51,14 @@ exports = module.exports = class QueueJson {
         return this.class_obj_array
     }
 
-    init = (props: any) => {
+    init = (props) => {
         let t = this, fname = `app init`, add = false, co
         try {
             t.log(`${fname} appender(${t.props.appender})`, "debug");
             try {
                 try {
                     if (typeof props.input_data != 'undefined') {
-                        props.input_data.map((dat: any, i: number) => {
+                        props.input_data.map((dat, i) => {
                             add = false
                             switch (t.props.appender) {
                                 case 'top_one':
@@ -163,7 +148,7 @@ exports = module.exports = class QueueJson {
         }
     }
 
-    log = (msg: any, type?: string) => {
+    log = (msg, type) => {
         try {
             let t = this, tp
             switch (type) {
@@ -194,7 +179,7 @@ exports = module.exports = class QueueJson {
         }
     }
 
-    process = (props: any) => {
+    process = (props) => {
         let t = this, fname = `app process`
         let pro = { 'dat_array': [''] }
         try {

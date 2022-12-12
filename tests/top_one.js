@@ -1,17 +1,14 @@
 
 /*
 * @author Jim Manton: jrman@risebroadband.net
-* @since 2022-05-24
-* top_one.ts
+* @since 2022-12-11
+* top_one.js
 */
 
-var queue = require("../app.ts");
+var queue = require("../app.js");
 
 class class_test_top_one {
-    private id: number = 0
-    private name: string = ''
-    private log: any
-    constructor(props: any) {
+    constructor(props) {
         let t = this
         t.id = props.id
         t.log = props.log
@@ -20,7 +17,7 @@ class class_test_top_one {
         t.process = t.process.bind(t)
     }
 
-    process(callback: any) {
+    process(callback) {
         let t = this
         if (t.id == 3) {
             callback({ error: { msg: `this id(${t.id}) has some problem` } })
@@ -45,12 +42,12 @@ try {
         debug: true
     }).init({ input_data: sample_data_top_one })
 
-    qJson.process({}).then((success: any) => {
+    qJson.process({}).then((success) => {
         qJson.log(`all success: (${JSON.stringify(success)})`, 'success')
-    }, (error: any) => {
+    }, (error) => {
         qJson.log(`all errors: (${JSON.stringify(error)})`, 'error')
     })
 } catch (e) {
-    console.log(`error running all.ts test`)
+    console.log(`error running top_one.js test`)
 }
 

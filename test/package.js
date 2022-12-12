@@ -4,9 +4,9 @@ const assert = require('assert'),
 
 const packageMock = {
   "name": "queuejson",
-  "version": "7.0.9",
+  "version": "8.0.0",
   "description": "Process class objects according to json array input data.",
-  "main": "app.ts",
+  "main": "app.js",
   "dependencies": {
     "chai": "^4.3.7",
     "mocha": "^10.1.0",
@@ -16,16 +16,16 @@ const packageMock = {
     "diffler": "^2.0.4"
   },
   "scripts": {
-    "start": "npx ts-node app.ts",
-    "test_all": "npx ts-node ./tests/all.ts",
-    "test_top_one": "npx ts-node ./tests/top_one.ts",
-    "test_bottom_one": "npx ts-node ./tests/bottom_one.ts",
-    "test_func_all": "npx ts-node ./tests/func_all.ts",
-    "test_sync_all": "npx ts-node ./tests/sync_all.ts",
-    "test_by_status_matching": "npx ts-node ./tests/by_status_matching.ts",
-    "test_by_status_non_matching": "npx ts-node ./tests/by_status_non_matching.ts",
-    "test_by_version_matching": "npx ts-node ./tests/by_version_matching.ts",
-    "test_by_version_non_matching": "npx ts-node ./tests/by_version_non_matching.ts",
+    "start": "node app.js",
+    "test_all": "node ./tests/all.js",
+    "test_top_one": "node ./tests/top_one.js",
+    "test_bottom_one": "node ./tests/bottom_one.js",
+    "test_func_all": "node ./tests/func_all.js",
+    "test_sync_all": "node ./tests/sync_all.js",
+    "test_by_status_matching": "node ./tests/by_status_matching.js",
+    "test_by_status_non_matching": "node ./tests/by_status_non_matching.js",
+    "test_by_version_matching": "node ./tests/by_version_matching.js",
+    "test_by_version_non_matching": "node ./tests/by_version_non_matching.js",
     "test": "mocha",
     "ditched": "ditched -a"
   },

@@ -1,17 +1,14 @@
 
 /*
 * @author Jim Manton: jrman@risebroadband.net
-* @since 2022-05-24
-* func_all.ts
+* @since 2022-12-11
+* func_all.js
 */
 
-var queue = require("../app.ts");
+var queue = require("../app.js");
 
 class class_test_func_all {
-    private id: number = 0
-    private name: string = ''
-    private log: any
-    constructor(props: any) {
+    constructor(props) {
         let t = this
         t.id = props.id
         t.log = props.log
@@ -21,7 +18,7 @@ class class_test_func_all {
         t.another_function = t.another_function.bind(t)
     }
 
-    some_function(callback: any) {
+    some_function(callback) {
         let t = this
         // if (t.id == 44) {
         //     callback({ error: { msg: `this id(${t.id}) in the custom function 'some_function' has thrown an error` } })
@@ -29,7 +26,7 @@ class class_test_func_all {
             callback({ success: { id: t.id, function_name: 'some_function' } })
     }
 
-    another_function(callback: any) {
+    another_function(callback) {
         let t = this
         callback({ success: { id: t.id } })
     }
@@ -50,9 +47,9 @@ try {
         debug: true
     }).init({ input_data: sample_data_func_all })
 
-    qJson.process({}).then((success: any) => {
+    qJson.process({}).then((success) => {
         qJson.log(`func_all success: (${JSON.stringify(success)})`, 'success')
-    }, (error: any) => {
+    }, (error) => {
         qJson.log(`func_all errors: (${JSON.stringify(error)})`, 'error')
     })
 } catch (e) {
