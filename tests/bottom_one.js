@@ -34,20 +34,20 @@ const sample_data_bottom_one = [
     { props: { id: 400, name: 'last' } }
 ]
 
-try {
-    let qJson = new queue({
-        class_obj: class_test_bottom_one,
-        appender: 'bottom_one',
-        stats: true,
-        debug: true
-    }).init({ input_data: sample_data_bottom_one })
+let qJson = new queue({
+    class_obj: class_test_bottom_one,
+    appender: 'bottom_one',
+    stats: true,
+    debug: true
+}).init({ input_data: sample_data_bottom_one })
 
+try {
     qJson.process({}).then((success) => {
-        qJson.log(`all success: (${JSON.stringify(success)})`, 'success')
+        qJson.logMsg(`all success: (${JSON.stringify(success)})`, { "type": "success" })
     }, (error) => {
-        qJson.log(`all errors: (${JSON.stringify(error)})`, 'error')
+        qJson.logMsg(`all errors: (${JSON.stringify(error)})`, { "type": "error" })
     })
 } catch (e) {
-    console.log(`error running all.ts test`)
+    qJson.logMsg(`error running bottom_one.js test`, { "type": "error" })
 }
 

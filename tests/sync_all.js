@@ -20,7 +20,7 @@ class class_test_sync_all {
 
     some_function(callback) {
         let t = this
-        setTimeout(()=>{
+        setTimeout(() => {
             callback({ success: { id: t.id, function_name: 'some_function' } })
         }, 3000)
     }
@@ -38,20 +38,20 @@ const sample_data_sync_all = [
     { props: { id: 450, name: 'last' } }
 ]
 
-try {
-    let qJson = new queue({
-        class_obj: class_test_sync_all,
-        appender: 'sync_all',
-        stats: true,
-        debug: true
-    }).init({ input_data: sample_data_sync_all })
+let qJson = new queue({
+    class_obj: class_test_sync_all,
+    appender: 'sync_all',
+    stats: true,
+    debug: true
+}).init({ input_data: sample_data_sync_all })
 
+try {
     qJson.process({}).then((success) => {
-        qJson.log(`sync_all success: (${JSON.stringify(success)})`, 'success')
+        qJson.logMsg(`sync_all success: (${JSON.stringify(success)})`, { "type": "success" })
     }, (error) => {
-        qJson.log(`sync_all errors: (${JSON.stringify(error)})`, 'error')
+        qJson.logMsg(`sync_all errors: (${JSON.stringify(error)})`, { "type": "error" })
     })
 } catch (e) {
-    console.log(`error running sync_all.js test`)
+    qJson.logMsg(`error running sync_all.js test`, { "type": "error" })
 }
 

@@ -36,20 +36,20 @@ const sample_data_by_status = [
     { props: { id: 400, status: 'delete', name: 'last' } }
 ]
 
-try {
-    let qJson = new queue({
-        class_obj: class_test_by_non_matching_status,
-        appender: 'status',
-        stats: true,
-        debug: true
-    }).init({ input_data: sample_data_by_status, non_matching: ['new'] })
+let qJson = new queue({
+    class_obj: class_test_by_non_matching_status,
+    appender: 'status',
+    stats: true,
+    debug: true
+}).init({ input_data: sample_data_by_status, non_matching: ['new'] })
 
+try {
     qJson.process({}).then((success) => {
-        qJson.log(`by_status success: (${JSON.stringify(success)})`, 'success')
+        qJson.logMsg(`by_status success: (${JSON.stringify(success)})`, { "type": "success" })
     }, (error) => {
-        qJson.log(`by_status errors: (${JSON.stringify(error)})`, 'error')
+        qJson.logMsg(`by_status errors: (${JSON.stringify(error)})`, { "type": "error" })
     })
 } catch (e) {
-    console.log(`error running by_status_non_matching.js test`)
+    qJson.logMsg(`error running by_status_non_matching.js test`, { "type": "error" })
 }
 

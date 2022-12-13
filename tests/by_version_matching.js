@@ -35,22 +35,22 @@ const sample_data_version = [
     { props: { id: 400, version: '5.00', name: 'last' } }
 ]
 
+let qJson = new queue({
+    class_obj: class_test_by_matching_version,
+    appender: 'version',
+    stats: true,
+    debug: false
+
+
+}).init({ input_data: sample_data_version, matching: ['1.01', '4.00'] })
+
 try {
-    let qJson = new queue({
-        class_obj: class_test_by_matching_version,
-        appender: 'version',
-        stats: true,
-        debug: false
-
-        
-    }).init({ input_data: sample_data_version, matching: ['1.01', '4.00'] })
-
     qJson.process({}).then((success) => {
-        qJson.log(`version success: (${JSON.stringify(success)})`, 'success')
+        qJson.logMsg(`version success: (${JSON.stringify(success)})`, { "type": "success" })
     }, (error) => {
-        qJson.log(`version errors: (${JSON.stringify(error)})`, 'error')
+        qJson.logMsg(`version errors: (${JSON.stringify(error)})`, { "type": "error" })
     })
 } catch (e) {
-    console.log(`error running by_version_matching.js test`)
+    qJson.logMsg(`error running by_version_matching.js test`, { "type": "error" })
 }
 

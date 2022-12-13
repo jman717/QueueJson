@@ -34,20 +34,20 @@ const sample_data_all = [
     { props: { id: 4, name: 'numb 4' } }
 ]
 
-try {
-    let qJson = new queue({
-        class_obj: class_test_all,
-        appender: 'all',
-        stats: true,
-        debug: true
-    }).init({ input_data: sample_data_all })
+let qJson = new queue({
+    class_obj: class_test_all,
+    appender: 'all',
+    stats: true,
+    debug: true
+}).init({ input_data: sample_data_all })
 
+try {
     qJson.process({}).then((success) => {
-        qJson.log(`all success: (${JSON.stringify(success)})`, 'success')
+        qJson.logMsg(`all success: (${JSON.stringify(success)})`, { "type": "success" })
     }, (error) => {
-        qJson.log(`all errors: (${JSON.stringify(error)})`, 'error')
+        qJson.logMsg(`all errors: (${JSON.stringify(error)})`, { "type": "error" })
     })
 } catch (e) {
-    console.log(`error running all.ts test`)
+    qJson.logMsg(`error running all.js test`, { "type": "error" })
 }
 

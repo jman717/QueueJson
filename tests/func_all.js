@@ -39,20 +39,20 @@ const sample_data_func_all = [
     { props: { id: 45, name: 'last', function_name: 'some_function' } }
 ]
 
-try {
-    let qJson = new queue({
-        class_obj: class_test_func_all,
-        appender: 'func_all',
-        stats: false,
-        debug: true
-    }).init({ input_data: sample_data_func_all })
+let qJson = new queue({
+    class_obj: class_test_func_all,
+    appender: 'func_all',
+    stats: false,
+    debug: true
+}).init({ input_data: sample_data_func_all })
 
+try {
     qJson.process({}).then((success) => {
-        qJson.log(`func_all success: (${JSON.stringify(success)})`, 'success')
+        qJson.logMsg(`func_all success: (${JSON.stringify(success)})`, {"type": "success"})
     }, (error) => {
-        qJson.log(`func_all errors: (${JSON.stringify(error)})`, 'error')
+        qJson.logMsg(`func_all errors: (${JSON.stringify(error)})`, {"type": "error"})
     })
 } catch (e) {
-    console.log(`error running func_all.ts test`)
+    qJson.logMsg(`error running func_all.js test`, {"type": "error"})
 }
 

@@ -23,7 +23,6 @@ exports = module.exports = class QueueJson {
 
             t.props = props
             t.props.getParent = t.getParent
-            t.props.log = t.log
 
             if (typeof t.props != 'undefined' && typeof t.props.debug != 'undefined') {
                 t.debug = t.props.debug
@@ -31,15 +30,15 @@ exports = module.exports = class QueueJson {
                 throw new Error(`props is not defined`)
             }
 
-            t.log = t.log.bind(t)
             t.init = t.init.bind(t)
             t.process = t.process.bind(t)
             t.getParent = t.getParent.bind(t)
+            t.logMsg = t.logMsg.bind(t)
 
-            t.log(fname, "debug");
+            t.logMsg(fname, {"type": "debug"});
             return t
         } catch (e) {
-            t.log(`${fname}: ${e}`, "error")
+            t.logMsg(`${fname}: ${e}`, {"type": "error"})
         }
     }
 
@@ -54,7 +53,7 @@ exports = module.exports = class QueueJson {
     init = (props) => {
         let t = this, fname = `app init`, add = false, co
         try {
-            t.log(`${fname} appender(${t.props.appender})`, "debug");
+            t.logMsg(`${fname} appender(${t.props.appender})`, {"type": "debug"});
             try {
                 try {
                     if (typeof props.input_data != 'undefined') {
@@ -144,38 +143,42 @@ exports = module.exports = class QueueJson {
             })
             return t
         } catch (e) {
-            t.log(`${fname}: ${e}`, "error")
+            t.logMsg(`${fname}: ${e}`, {"type": "error"})
         }
     }
 
-    log = (msg, type) => {
+    logMsg = (msg, props = {}) => {
+        let t = this
         try {
             let t = this, tp
-            switch (type) {
-                case 'debug':
-                    if (!t.debug)
-                        return
-                    tp = "bg_dark_gray"
-                    break
-                case 'error':
-                    tp = "fg_red"
-                    break
-                case 'purple':
-                    tp = "bg_purple"
-                    break
-                case 'success':
-                    tp = "fg_green"
-                    break
-                case 'white':
-                    tp = "bg_white"
-                    break
-                default:
-                    tp = 'bg_dark_gray'
+            if (typeof props != 'undefined' && typeof props.type != 'undefined') {
+                switch (props.type) {
+                    case 'debug':
+                        if (!t.debug)
+                            return
+                        tp = "bg_dark_gray"
+                        break
+                    case 'error':
+                        tp = "fg_red"
+                        break
+                    case 'purple':
+                        tp = "bg_purple"
+                        break
+                    case 'success':
+                        tp = "fg_green"
+                        break
+                    case 'white':
+                        tp = "bg_white"
+                        break
+                    default:
+                        tp = 'bg_dark_gray'
+                }
+                console.log(cc.set(tp, msg))
+                return t
             }
-            console.log(cc.set(tp, msg))
-            return t
+            throw new Error('No props.type included')
         } catch (e) {
-            console.log(`app log: ${e}`)
+            console.log(`app log: ${e.message} for message (${msg})`)
         }
     }
 
@@ -183,7 +186,6 @@ exports = module.exports = class QueueJson {
         let t = this, fname = `app process`
         let pro = { 'dat_array': [''] }
         try {
-            // t.log(`${fname} appender(${JSON.stringify(t.props)})`, "debug");
             switch (t.props.appender) {
                 case 'all':
                     pro.dat_array.push('all')
@@ -211,8 +213,7 @@ exports = module.exports = class QueueJson {
                     throw new Error(`nothing to process`)
             }
         } catch (e) {
-            t.log(`${fname}: ${e}`, "error")
+            t.logMsg(`${fname}: ${e}`, {"type": "error"})
         }
-
     }
 }

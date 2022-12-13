@@ -12,10 +12,12 @@ exports = module.exports = class version extends base {
 		var t = this
 		try {
 			t.aname = 'version'
-			// t.log(`version constructor`, `debug`)
+			t.parent.logMsg(`version constructor`, {"type": "debug"})
+
 			return t
 		} catch (e) {
-			t.log(e, "error")
+			t.parent.logMsg(e.message, {"type": "error"})
+
 		}
 
 	}

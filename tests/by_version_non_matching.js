@@ -43,11 +43,11 @@ try {
     }).init({ input_data: sample_data_by_version, non_matching: ['1.01'] })
 
     qJson.process({}).then((success) => {
-        qJson.log(`version success: (${JSON.stringify(success)})`, 'success')
+        qJson.logMsg(`version success: (${JSON.stringify(success)})`, {"type": "success"})
     }, (error) => {
-        qJson.log(`version errors: (${JSON.stringify(error)})`, 'error')
+        qJson.logMsg(`version errors: (${JSON.stringify(error)})`, {"type": "error"})
     })
 } catch (e) {
-    console.log(`error running by_version_non_matching.js test`)
+    qJson.logMsg(`error running by_version_non_matching.js test`, {"type": "error"})
 }
 
