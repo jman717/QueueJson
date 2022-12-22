@@ -4,14 +4,14 @@ const assert = require('assert'),
 
 const packageMock = {
   "name": "queuejson",
-  "version": "8.2.0",
+  "version": "8.2.1",
   "description": "Process class objects according to json array input data.",
   "main": "app.js",
   "dependencies": {
     "chai": "^4.3.7",
     "mocha": "^10.1.0",
     "node-console-colors": "^1.1.4",
-    "queueobj": "^10.1.3",
+    "queueobj": "^10.1.4",
     "ts-node": "^10.9.1",
     "diffler": "^2.0.4"
   },
