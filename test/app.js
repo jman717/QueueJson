@@ -1,30 +1,53 @@
 var assert = require('assert');
 
 describe('app', function () {
+    let app, application, props = {getParent: ()=>{}, debug: true}
 
-    describe('require', function () {
-        it('queueobj', function () {
-            try {
-                queueobj = require('queueobj')
-                if (typeof queueobj == 'undefined') {
-                    throw new Error('no queueobj')
-                }
-            } catch (e) {
-                assert(false)
-            }
-        })
+    it('app.constructor should pass with parameters', function () {
+        application = require('../app.js')
+        assert(app = new application(props))
+    })
+
+    it('app.init is a function', function () {
+        assert(typeof app.init == 'function')
+    })
+
+    it('app.process is a function', function () {
+        assert(typeof app.process == 'function')
     })
     
-    describe('node-console-colors', function () {
-        it('node-console-colors', function () {
-            try {
-                ncc = require('node-console-colors')
-                if (typeof ncc == 'undefined') {
-                    throw new Error('no node-console-colors')
-                }
-            } catch (e) {
-                assert(false)
-            }
-        })
+    it('app.getParent is a function', function () {
+        assert(typeof app.getParent == 'function')
+    })
+
+    it('app.logMsg is a function', function () {
+        assert(typeof app.logMsg == 'function')
+    })
+})
+
+describe('require', function () {
+    
+    it('queueobj', function () {
+        assert(require('queueobj'))
+    })
+    
+    it('chai', function () {
+        assert(require('chai'))
+    })
+    
+    it('mocha', function () {
+        assert(require('mocha'))
+    })
+
+    it('node-console-colors', function () {
+        assert(require('node-console-colors'))
+    })
+        
+    it('ts-node', function () {
+        assert(require('ts-node'))
+    })
+            
+    it('diffler', function () {
+        assert(require('diffler'))
     })
 })
