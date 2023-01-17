@@ -2,12 +2,12 @@
 /*
 * @author Jim Manton: jrman@risebroadband.net
 * @since 2022-12-11
-* by_status.js
+* by_name.js
 */
 
 var queue = require("../app.js");
 
-class class_test_by_matching_status {
+class class_test_by_name {
     constructor(props) {
         let t = this
         t.id = props.id
@@ -22,33 +22,33 @@ class class_test_by_matching_status {
     process(callback) {
         let t = this
         if (t.id == 300) {
-            callback({ error: { msg: `this id(${t.id})} status(${t.status}) has some problem` } })
+            callback({ error: { msg: `this id(${t.id})} name(${t.name}) has some problem` } })
         } else
-            callback({ success: { msg: `id = ${t.id} status(${t.status})` } })
+            callback({ success: { msg: `id = ${t.id} name(${t.name})` } })
     }
 
 }
 
-const sample_data_by_status = [
+const sample_data_by_name = [
     { props: { id: 100, status: 'new', name: 'test' } },
     { props: { id: 200, status: 'print', name: 'another' } },
     { props: { id: 300, status: 'new', name: 'some name' } },
     { props: { id: 400, status: 'delete', name: 'last' } }
 ]
 let qJson = new queue({
-    class_obj: class_test_by_matching_status,
-    appender: 'status',
+    class_obj: class_test_by_name,
+    appender: 'name',
     stats: true,
     debug: true
-}).init({ input_data: sample_data_by_status, matching: ['new', 'print'] })
+}).init({ input_data: sample_data_by_name, non_matching: ['test', 'last'] })
 
 try {
     qJson.process({}).then((success) => {
-        qJson.logMsg(`by_status success: (${JSON.stringify(success)})`, { "type": "success" })
+        qJson.logMsg(`by_name_non_matching success: (${JSON.stringify(success)})`, { "type": "success" })
     }, (error) => {
-        qJson.logMsg(`by_status errors: (${JSON.stringify(error)})`, { "type": "error" })
+        qJson.logMsg(`by_name_non_matching errors: (${JSON.stringify(error)})`, { "type": "error" })
     })
 } catch (e) {
-    qJson.logMsg(`error running by_status_matching.js test`, { "type": "error" })
+    qJson.logMsg(`error running by_name_matching.js test`, { "type": "error" })
 }
 

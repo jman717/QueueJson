@@ -12,6 +12,7 @@ const cc = require("node-console-colors"),
     func_all = require('./lib/appenders/func_all'),
     sync_all = require('./lib/appenders/sync_all'),
     by_status = require('./lib/appenders/by_status'),
+    by_name = require('./lib/appenders/by_name'),
     version = require('./lib/appenders/version')
 
 exports = module.exports = class QueueJson {
@@ -35,10 +36,10 @@ exports = module.exports = class QueueJson {
             t.getParent = t.getParent.bind(t)
             t.logMsg = t.logMsg.bind(t)
 
-            t.logMsg(fname, {"type": "debug"});
+            t.logMsg(fname, { "type": "debug" });
             return t
         } catch (e) {
-            t.logMsg(`${fname}: ${e}`, {"type": "error"})
+            t.logMsg(`${fname}: ${e}`, { "type": "error" })
         }
     }
 
@@ -53,7 +54,7 @@ exports = module.exports = class QueueJson {
     init = (props) => {
         let t = this, fname = `app init`, add = false, co
         try {
-            t.logMsg(`${fname} appender(${t.props.appender})`, {"type": "debug"});
+            t.logMsg(`${fname} appender(${t.props.appender})`, { "type": "debug" });
             try {
                 try {
                     if (typeof props.input_data != 'undefined') {
@@ -76,6 +77,17 @@ exports = module.exports = class QueueJson {
                                     } catch { }
                                     try {
                                         if (props.non_matching.indexOf(dat.props.status) == -1)
+                                            add = true
+                                    } catch { }
+                                    break
+                                case 'name':
+                                case 'by_name':
+                                    try {
+                                        if (props.matching.indexOf(dat.props.name) > -1)
+                                            add = true
+                                    } catch { }
+                                    try {
+                                        if (props.non_matching.indexOf(dat.props.name) == -1)
                                             add = true
                                     } catch { }
                                     break
@@ -131,6 +143,10 @@ exports = module.exports = class QueueJson {
                     case 'by_status':
                         t.by_status = new by_status(t.props)
                         break
+                    case 'name':
+                    case 'by_name':
+                        t.by_name = new by_name(t.props)
+                        break
                     case 'version':
                         t.version = new version(t.props)
                         break
@@ -143,7 +159,7 @@ exports = module.exports = class QueueJson {
             })
             return t
         } catch (e) {
-            t.logMsg(`${fname}: ${e}`, {"type": "error"})
+            t.logMsg(`${fname}: ${e}`, { "type": "error" })
         }
     }
 
@@ -203,6 +219,10 @@ exports = module.exports = class QueueJson {
                 case 'by_status':
                     pro.dat_array.push('by_status')
                     return t.by_status.process(props)
+                case 'name':
+                case 'by_name':
+                    pro.dat_array.push('by_name')
+                    return t.by_name.process(props)
                 case 'version':
                     pro.dat_array.push('version')
                     return t.version.process(props)
@@ -213,7 +233,7 @@ exports = module.exports = class QueueJson {
                     throw new Error(`nothing to process`)
             }
         } catch (e) {
-            t.logMsg(`${fname}: ${e}`, {"type": "error"})
+            t.logMsg(`${fname}: ${e}`, { "type": "error" })
         }
     }
 }

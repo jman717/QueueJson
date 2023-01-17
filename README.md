@@ -1,5 +1,3 @@
-# QueueJson
-
 Process class objects by selected appender according to json array input data. All appenders are processed synchronously.
 
 Included tag appenders:
@@ -10,13 +8,13 @@ Included tag appenders:
 * func_all - process custom functions of custom class objects per json input array.
 * sync_all - process custom functions of custom class objects per json input array.
 * status - process custom class objects by status (matching or non-matching items) per json input array.
+* name - process custom class objects by name (matching or non-matching items) per json input array.
 * version - process custom class objects by version (matching or non-matching items) per json input array.
 
 Installation
 ---------
-```
-npm install QueueJson 
-```
+
+[![NPM](https://nodei.co/npm/queuejson.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/queuejson/)
 
 Mocha Test
 ---------
@@ -32,6 +30,8 @@ npm run test_top_one
 npm run test_bottom_one
 npm run test_func_all
 npm run test_sync_all
+npm run test_by_name_matching
+npm run test_by_name_non_matching
 npm run test_by_status_matching
 npm run test_by_status_non_matching
 npm run test_by_version_matching
