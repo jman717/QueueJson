@@ -13,6 +13,8 @@ Included tag appenders:
 
 Installation
 ---------
+[![npm Package](https://img.shields.io/npm/v/queuejson.svg)](https://www.npmjs.org/package/queuejson)
+[![License](https://img.shields.io/npm/l/queuejson.svg)](https://github.com/jman717/queuejson/blob/master/LICENSE)
 
 [![NPM](https://nodei.co/npm/queuejson.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/queuejson/)
 
