@@ -194,7 +194,7 @@ exports = module.exports = class QueueJson {
         }
     }
 
-    process = (props) => {
+    process = () => {
         let t = this, fname = `app process`, file_obj, jsObj, i
         let pro = { 'dat_array': [''] }
         try {
