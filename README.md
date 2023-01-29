@@ -1,5 +1,11 @@
+[![npm Package](https://img.shields.io/npm/v/queuejson.svg)](https://www.npmjs.org/package/queuejson)
+[![License](https://img.shields.io/npm/l/queuejson.svg)](https://github.com/jman717/queuejson/blob/master/LICENSE)
+
+[![NPM](https://nodei.co/npm/queuejson.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/queuejson/)
+
 Process class objects by selected appender according to json array input data. All appenders are processed synchronously.
 
+---------
 Included tag appenders:
 
 * all - process class object per json input array.
@@ -10,13 +16,6 @@ Included tag appenders:
 * status - process custom class objects by status (matching or non-matching items) per json input array.
 * name - process custom class objects by name (matching or non-matching items) per json input array.
 * version - process custom class objects by version (matching or non-matching items) per json input array.
-
-Installation
----------
-[![npm Package](https://img.shields.io/npm/v/queuejson.svg)](https://www.npmjs.org/package/queuejson)
-[![License](https://img.shields.io/npm/l/queuejson.svg)](https://github.com/jman717/queuejson/blob/master/LICENSE)
-
-[![NPM](https://nodei.co/npm/queuejson.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/queuejson/)
 
 Mocha Test
 ---------
