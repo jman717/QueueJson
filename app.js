@@ -5,7 +5,7 @@
 * apps.js
 */
 
-var cc = require("node-console-colors"),
+let cc = require("node-console-colors"),
     file_queue = new require('file-obj-queue'),
     file_requre_data = [
         { props: { id: 100, name: "all", path: "./lib/appenders/all.js", absolute_path: __filename, check: true } },
@@ -31,7 +31,7 @@ exports = module.exports = class QueueJson {
     constructor(props) {
         let t = this, fname = `app constructor`
         try {
-            console.log(`${fname} 1001`, { "type": "debug" });
+            console.log(`${fname} 4000`, { "type": "debug" });
             t.class_obj_array = [];
             t.appenders = [{ name: 'all', obj: null }]
 
@@ -44,14 +44,16 @@ exports = module.exports = class QueueJson {
                 throw new Error(`props is not defined`)
             }
 
-            t.qRequire = new file_queue().init({ input_data: file_requre_data })
+            t.qRequire = null  //jrm debug 1/29
+            // t.qRequire = new file_queue().init({ input_data: file_requre_data })  //jrm debug 1/29
 
             t.init = t.init.bind(t)
             t.process = t.process.bind(t)
             t.getParent = t.getParent.bind(t)
             t.logMsg = t.logMsg.bind(t)
 
-            t.logMsg(`${fname} 1001`, { "type": "debug" });
+            t.logMsg(`${fname} 4001`, { "type": "debug" });
+            
             return t
         } catch (e) {
             t.logMsg(`${fname}: ${e}`, { "type": "error" })
@@ -69,7 +71,10 @@ exports = module.exports = class QueueJson {
     init = (props) => {
         let t = this, fname = `app init`, add = false, co, file_obj, obj
         try {
-            t.logMsg(`${fname} appender(${t.props.appender})`, { "type": "debug" });
+            t.logMsg(`${fname} appender(${t.props.appender})`, { "type": "debug" })
+            if (t.qRequire == null)
+                t.qRequire = new file_queue().init({ input_data: file_requre_data })  //jrm debug 1/29
+
             try {
                 try {
                     if (typeof props.input_data != 'undefined') {
@@ -140,7 +145,7 @@ exports = module.exports = class QueueJson {
                 throw `new class_obj: ${e}`
             }
 
-            file_obj = t.qRequire.getFileObject()  
+            file_obj = t.qRequire.getFileObject()
             if (typeof t.props != `undefined`) {
                 if (typeof t.props.appender != `undefined` &&
                     typeof t.props.appender == 'string') {
@@ -199,12 +204,12 @@ exports = module.exports = class QueueJson {
         let t = this, fname = `app process`, file_obj, jsObj, i
         let pro = { 'dat_array': [''] }
         try {
-            file_obj = t.qRequire.getFileObject()  
+            file_obj = t.qRequire.getFileObject()
             for (i = 0; i < file_obj.length; i++) {
                 jsObj = file_obj[i]
                 if (jsObj.name == t.props.appender) {
                     pro.dat_array.push(`${jsObj.name}`)
-                    return eval(`t.${jsObj.name}.process()`)  
+                    return eval(`t.${jsObj.name}.process()`)
                 }
             }
             throw new Error('no appender found to process')
