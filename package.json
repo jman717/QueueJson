@@ -1,6 +1,6 @@
 {
   "name": "queuejson",
-  "version": "9.0.4",
+  "version": "9.0.5",
   "description": "Process class objects according to json array input data.",
   "main": "app.js",
   "dependencies": {
@@ -8,7 +8,7 @@
     "mocha": "^10.1.0",
     "node-console-colors": "^1.1.4",
     "queueobj": "^12.0.3",
-    "file-obj-queue": "^1.0.13",
+    "file-obj-queue": "^1.0.19",
     "ts-node": "^10.9.1",
     "diffler": "^2.0.4"
   },
