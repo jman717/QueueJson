@@ -5,7 +5,7 @@
 * apps.js
 */
 
-const cc = require("node-console-colors"),
+var cc = require("node-console-colors"),
     file_queue = new require('file-obj-queue'),
     file_requre_data = [
         { props: { id: 100, name: "all", path: "./lib/appenders/all.js", absolute_path: __filename, check: true } },
@@ -31,6 +31,7 @@ exports = module.exports = class QueueJson {
     constructor(props) {
         let t = this, fname = `app constructor`
         try {
+            console.log(`${fname} 1001`, { "type": "debug" });
             t.class_obj_array = [];
             t.appenders = [{ name: 'all', obj: null }]
 
@@ -50,7 +51,7 @@ exports = module.exports = class QueueJson {
             t.getParent = t.getParent.bind(t)
             t.logMsg = t.logMsg.bind(t)
 
-            t.logMsg(fname, { "type": "debug" });
+            t.logMsg(`${fname} 1001`, { "type": "debug" });
             return t
         } catch (e) {
             t.logMsg(`${fname}: ${e}`, { "type": "error" })
