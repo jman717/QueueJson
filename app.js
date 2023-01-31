@@ -44,8 +44,15 @@ exports = module.exports = class QueueJson {
                 throw new Error(`props is not defined`)
             }
 
-            t.qRequire = null  //jrm debug 1/29
-            // t.qRequire = new file_queue().init({ input_data: file_requre_data })  //jrm debug 1/29
+            if (typeof t.props.getFileObj == 'function') { //jrm debug 1/31
+                console.log(`jrm debug 1/31 getFileObj 1200`)
+                t.file_obj_queue = t.props.getFileObj()   //jrm debug 1/31
+            } else {
+                console.log(`jrm debug 1/31 getFileObj 1201`)
+                t.file_obj_queue = null  //jrm debug 1/30
+            }
+            // t.file_obj_queue = new file_queue().init({ input_data: file_requre_data })  //jrm debug 1/29
+            console.log(`jrm debug 1/31 getFileObj 1202 (${typeof t.file_obj_queue})`)
 
             t.init = t.init.bind(t)
             t.process = t.process.bind(t)
@@ -53,7 +60,7 @@ exports = module.exports = class QueueJson {
             t.logMsg = t.logMsg.bind(t)
 
             t.logMsg(`${fname} 4001`, { "type": "debug" });
-            
+
             return t
         } catch (e) {
             t.logMsg(`${fname}: ${e}`, { "type": "error" })
@@ -72,8 +79,12 @@ exports = module.exports = class QueueJson {
         let t = this, fname = `app init`, add = false, co, file_obj, obj
         try {
             t.logMsg(`${fname} appender(${t.props.appender})`, { "type": "debug" })
-            if (t.qRequire == null)
-                t.qRequire = new file_queue().init({ input_data: file_requre_data })  //jrm debug 1/29
+            if (t.file_obj_queue == null) {
+                t.file_obj_queue = new file_queue().init({ input_data: file_requre_data })  //jrm debug 1/29
+                t.logMsg(`${fname} jrm debug 1/31 SHOULD NOT BE HERE`, { "type": "debug" })
+
+            }
+            return
 
             try {
                 try {
@@ -145,7 +156,7 @@ exports = module.exports = class QueueJson {
                 throw `new class_obj: ${e}`
             }
 
-            file_obj = t.qRequire.getFileObject()
+            file_obj = t.file_obj_queue.getFileObject()
             if (typeof t.props != `undefined`) {
                 if (typeof t.props.appender != `undefined` &&
                     typeof t.props.appender == 'string') {
@@ -204,7 +215,7 @@ exports = module.exports = class QueueJson {
         let t = this, fname = `app process`, file_obj, jsObj, i
         let pro = { 'dat_array': [''] }
         try {
-            file_obj = t.qRequire.getFileObject()
+            file_obj = t.file_obj_queue.getFileObject()
             for (i = 0; i < file_obj.length; i++) {
                 jsObj = file_obj[i]
                 if (jsObj.name == t.props.appender) {
