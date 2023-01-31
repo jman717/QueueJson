@@ -4,7 +4,7 @@ const assert = require('assert'),
 
 const packageMock = {
   "name": "queuejson",
-  "version": "9.0.10",
+  "version": "9.0.11",
   "description": "Process class objects according to json array input data.",
   "main": "app.js",
   "dependencies": {
