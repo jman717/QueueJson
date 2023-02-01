@@ -5,33 +5,20 @@
 * apps.js
 */
 
-let cc = require("node-console-colors"),
-    file_queue = new require('file-obj-queue'),
-    file_requre_data = [
-        { props: { id: 100, name: "all", path: "./lib/appenders/all.js", absolute_path: __filename, check: true } },
-        { props: { id: 101, name: "func_all", path: "./lib/appenders/func_all.js", absolute_path: __filename, check: true } },
-        { props: { id: 102, name: "top_one", path: "./lib/appenders/top_one.js", absolute_path: __filename, check: true } },
-        { props: { id: 103, name: "bottom_one", path: "./lib/appenders/bottom_one.js", absolute_path: __filename, check: true } },
-        { props: { id: 104, name: "sync_all", path: "./lib/appenders/sync_all.js", absolute_path: __filename, check: true } },
-        { props: { id: 105, name: "status", path: "./lib/appenders/status.js", absolute_path: __filename, check: true } },
-        { props: { id: 106, name: "name", path: "./lib/appenders/name.js", absolute_path: __filename, check: true } },
-        { props: { id: 107, name: "version", path: "./lib/appenders/version.js", absolute_path: __filename, check: true } }
-    ]
-
-// all = require('./lib/appenders/all.js'),
-//     top_one = require('./lib/appenders/top_one'),
-//     bottom_one = require('./lib/appenders/bottom_one'),
-//     func_all = require('./lib/appenders/func_all'),
-//     sync_all = require('./lib/appenders/sync_all'),
-//     by_status = require('./lib/appenders/by_status'),
-//     by_name = require('./lib/appenders/by_name'),
-//     version = require('./lib/appenders/version')
+const cc = require("node-console-colors"),
+    all = require('./lib/appenders/all.js'),
+    top_one = require('./lib/appenders/top_one'),
+    bottom_one = require('./lib/appenders/bottom_one'),
+    func_all = require('./lib/appenders/func_all'),
+    sync_all = require('./lib/appenders/sync_all'),
+    by_status = require('./lib/appenders/by_status'),
+    by_name = require('./lib/appenders/by_name'),
+    version = require('./lib/appenders/version')
 
 exports = module.exports = class QueueJson {
     constructor(props) {
         let t = this, fname = `app constructor`
         try {
-            console.log(`${fname} 4000`, { "type": "debug" });
             t.class_obj_array = [];
             t.appenders = [{ name: 'all', obj: null }]
 
@@ -44,27 +31,12 @@ exports = module.exports = class QueueJson {
                 throw new Error(`props is not defined`)
             }
 
-            console.log(`jrm debug 1/31 getFileObj 1100 (${typeof t.props.getFileObj})`)
-            if (typeof t.props.getFileObj == 'function') { //jrm debug 1/31
-                console.log(`jrm debug 1/31 getFileObj 1200`)
-                t.file_obj_queue = t.props.getFileObj()   //jrm debug 1/31
-            } else {
-                console.log(`jrm debug 1/31 getFileObj 1201`)
-                t.file_obj_queue = null  //jrm debug 1/30
-            }
-            // t.file_obj_queue = new file_queue().init({ input_data: file_requre_data })  //jrm debug 1/29
-            console.log(`jrm debug 1/31 getFileObj 1202 (${typeof t.file_obj_queue})`)
-
-
-            process.exit(22);
-
             t.init = t.init.bind(t)
             t.process = t.process.bind(t)
             t.getParent = t.getParent.bind(t)
             t.logMsg = t.logMsg.bind(t)
 
-            t.logMsg(`${fname} 4001`, { "type": "debug" });
-
+            t.logMsg(fname, { "type": "debug" });
             return t
         } catch (e) {
             t.logMsg(`${fname}: ${e}`, { "type": "error" })
@@ -80,16 +52,9 @@ exports = module.exports = class QueueJson {
     }
 
     init = (props) => {
-        let t = this, fname = `app init`, add = false, co, file_obj, obj
+        let t = this, fname = `app init`, add = false, co
         try {
-            t.logMsg(`${fname} appender(${t.props.appender})`, { "type": "debug" })
-            if (t.file_obj_queue == null) {
-                t.file_obj_queue = new file_queue().init({ input_data: file_requre_data })  //jrm debug 1/29
-                t.logMsg(`${fname} jrm debug 1/31 SHOULD NOT BE HERE`, { "type": "debug" })
-
-            }
-            return
-
+            t.logMsg(`${fname} appender(${t.props.appender})`, { "type": "debug" });
             try {
                 try {
                     if (typeof props.input_data != 'undefined') {
@@ -159,21 +124,39 @@ exports = module.exports = class QueueJson {
             } catch (e) {
                 throw `new class_obj: ${e}`
             }
+            t.appenders.map((aPen, i) => {
 
-            file_obj = t.file_obj_queue.getFileObject()
-            if (typeof t.props != `undefined`) {
-                if (typeof t.props.appender != `undefined` &&
-                    typeof t.props.appender == 'string') {
-                    t.props.getParent = t.getParent
-                    file_obj.map((jsObj, i) => {
-                        if (jsObj.name == t.props.appender) {
-                            obj = require(jsObj.path)
-                            eval(`t.${jsObj.name} = new obj(t.props)`)
-                        }
-                    })
+                switch (t.props.appender) {
+                    case 'all':
+                        t.all = new all(t.props)
+                        break
+                    case 'top_one':
+                        t.top_one = new top_one(t.props)
+                        break
+                    case 'func_all':
+                        t.func_all = new func_all(t.props)
+                        break
+                    case 'sync_all':
+                        t.sync_all = new sync_all(t.props)
+                        break
+                    case 'status':
+                    case 'by_status':
+                        t.by_status = new by_status(t.props)
+                        break
+                    case 'name':
+                    case 'by_name':
+                        t.by_name = new by_name(t.props)
+                        break
+                    case 'version':
+                        t.version = new version(t.props)
+                        break
+                    case 'bottom_one':
+                        t.bottom_one = new bottom_one(t.props)
+                        break
+                    default:
+                        throw new Error(`appender(${t.props.appender}) is not defined`)
                 }
-                return t
-            }
+            })
             return t
         } catch (e) {
             t.logMsg(`${fname}: ${e}`, { "type": "error" })
@@ -215,19 +198,40 @@ exports = module.exports = class QueueJson {
         }
     }
 
-    process = () => {
-        let t = this, fname = `app process`, file_obj, jsObj, i
+    process = (props) => {
+        let t = this, fname = `app process`
         let pro = { 'dat_array': [''] }
         try {
-            file_obj = t.file_obj_queue.getFileObject()
-            for (i = 0; i < file_obj.length; i++) {
-                jsObj = file_obj[i]
-                if (jsObj.name == t.props.appender) {
-                    pro.dat_array.push(`${jsObj.name}`)
-                    return eval(`t.${jsObj.name}.process()`)
-                }
+            switch (t.props.appender) {
+                case 'all':
+                    pro.dat_array.push('all')
+                    return t.all.process()
+                case 'top_one':
+                    pro.dat_array.push('top_one')
+                    return t.top_one.process()
+                case 'bottom_one':
+                    pro.dat_array.push('bottom_one')
+                    return t.bottom_one.process()
+                case 'func_all':
+                    pro.dat_array.push('func_all')
+                    return t.func_all.process()
+                case 'status':
+                case 'by_status':
+                    pro.dat_array.push('by_status')
+                    return t.by_status.process(props)
+                case 'name':
+                case 'by_name':
+                    pro.dat_array.push('by_name')
+                    return t.by_name.process(props)
+                case 'version':
+                    pro.dat_array.push('version')
+                    return t.version.process(props)
+                case 'sync_all':
+                    pro.dat_array.push('sync_all')
+                    return t.sync_all.process()
+                default:
+                    throw new Error(`nothing to process`)
             }
-            throw new Error('no appender found to process')
         } catch (e) {
             t.logMsg(`${fname}: ${e}`, { "type": "error" })
         }
