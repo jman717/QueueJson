@@ -44,6 +44,7 @@ exports = module.exports = class QueueJson {
                 throw new Error(`props is not defined`)
             }
 
+            console.log(`jrm debug 1/31 getFileObj 1100 (${typeof t.props.getFileObj})`)
             if (typeof t.props.getFileObj == 'function') { //jrm debug 1/31
                 console.log(`jrm debug 1/31 getFileObj 1200`)
                 t.file_obj_queue = t.props.getFileObj()   //jrm debug 1/31
@@ -53,6 +54,9 @@ exports = module.exports = class QueueJson {
             }
             // t.file_obj_queue = new file_queue().init({ input_data: file_requre_data })  //jrm debug 1/29
             console.log(`jrm debug 1/31 getFileObj 1202 (${typeof t.file_obj_queue})`)
+
+
+            process.exit(22);
 
             t.init = t.init.bind(t)
             t.process = t.process.bind(t)
