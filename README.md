@@ -3,6 +3,9 @@
 
 [![NPM](https://nodei.co/npm/queuejson.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/queuejson/)
 
+This is a depreciated project, but we'll keep it out there for a bit. All of these appenders have been rolled into QueueObj (https://www.npmjs.com/package/queueobj).
+
+
 Process class objects by selected appender according to json array input data. All appenders are processed synchronously.
 
 ---------
